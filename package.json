@@ -1,0 +1,45 @@
+{
+  "name": "airlinereservation",
+  "version": "1.0.0",
+  "description": "\"New Technology in Web Development\" Course Project",
+  "main": "index.js",
+  "scripts": {
+    "watch:server": "nodemon server/index.js",
+    "clean": "rm -rf client/dist",
+    "lint:server": "jshint server/**/*.js",
+    "lint:client": "jshint client/**/*.js",
+    "lint": "npm run lint:server && npm run lint:client",
+    "prebuild:scripts": "npm run lint && mkdir -p client/dist/js/",
+    "build:scripts": "browserify client/source/js/app.js -o client/dist/js/bundle.js",
+    "build:css": "node-sass client/source/css/ -o client/dist/css/style.css",
+    "prebuild": "npm run clean",
+    "build": "npm run build:scripts && npm run build:css",
+    "test:server": "mocha server/**/test-*.js",
+    "test:client": "mocha client/**/test-*.js",
+    "test": "npm run test:server && npm run test:client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://williamdang1710@github.com/williamdang1710/airlinereservation.git"
+  },
+  "author": "Triet Dang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/williamdang1710/airlinereservation/issues"
+  },
+  "homepage": "https://github.com/williamdang1710/airlinereservation#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-validator": "^2.20.10"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "chai": "^3.5.0",
+    "jshint": "^2.9.3",
+    "mocha": "^3.1.2",
+    "node-sass": "^3.10.1",
+    "nodemon": "^1.11.0"
+  }
+}

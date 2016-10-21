@@ -1,3 +1,2 @@
-const app = require('./app');
-
-app.start();
+require('./config');
+require('./app').start();

@@ -1,15 +1,15 @@
-const express = require('express');
 const http = require('http');
+const express = require('express');
+const mongoose = require('mongoose');
+// Middlewares
 const bodyParser = require('body-parser');
-const config = require('../config');
-const app = express();
+const morgan = require('morgan');
 
-// API route require
-//-----------------------------------
-//const flightsRoute = require('flight');
-//const bookingsRoute = require('booking');
+// API middlewares
+const passengerEndpoint = require('./passenger');
+const bookingEndpoint = require('./booking');
 
-// API routes
+// Api routes config
 //-----------------------------------
 const apiRoute = express.Router();
 
@@ -18,7 +18,17 @@ apiRoute.use(bodyParser.urlencoded({extended: false}));
 apiRoute.use(bodyParser.json());
 
 // Mount endpoints
+apiRoute.use('/passengers', passengerEndpoint);
+apiRoute.use('/bookings', bookingEndpoint);
+
+// App config
 //-----------------------------------
+const app = express();
+
+// Config middleware
+app.use(morgan('combined'));
+
+// Mount endpoints
 app.use('/api', apiRoute);
 
 // Exports
@@ -28,6 +38,7 @@ var server;
 module.exports = {
 	start: function () {
 		server = http.createServer(app);
+		mongoose.connect(config.connectionString);
 		server.listen(config.port, function () {
 			console.log(`Listening on port ${config.port}`);
 		});

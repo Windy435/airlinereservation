@@ -4,12 +4,10 @@ const mongoose = require('mongoose');
 // Middlewares
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const expressValidator = require('express-validator');
-
-const config = require('../config');
 
 // API middlewares
-const passengersEndpoint = require('./passenger');
+const passengerEndpoint = require('./passenger');
+const bookingEndpoint = require('./booking');
 
 // Api routes config
 //-----------------------------------
@@ -18,10 +16,10 @@ const apiRoute = express.Router();
 // Config middle wares
 apiRoute.use(bodyParser.urlencoded({extended: false}));
 apiRoute.use(bodyParser.json());
-apiRoute.use(expressValidator());
 
 // Mount endpoints
-apiRoute.use('/passengers', passengersEndpoint);
+apiRoute.use('/passengers', passengerEndpoint);
+apiRoute.use('/bookings', bookingEndpoint);
 
 // App config
 //-----------------------------------

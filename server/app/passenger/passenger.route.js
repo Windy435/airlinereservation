@@ -3,35 +3,48 @@ const Passenger = require('./passenger.model');
 // Route methods
 //-----------------------------------
 module.exports.post = function (req, res, next) {
-  var validationErrors;
   var newPassenger;
 
   // Validate request parameters
   req.checkBody({
-    'name': {
+    'bookingId': {
       notEmpty: true,
-      errorMessage: "Invalid name"
+      isValidBookingId: true,
+      errorMessage: 'Invalid bookingId'
+    },
+    'firstName': {
+      notEmpty: true,
+      errorMessage: 'Invalid firstName'
+    },
+    'lastName': {
+      notEmpty: true,
+      errorMessage: 'Invalid lastName'
     }
   });
-  validationErrors = req.validationErrors();
-  if (validationErrors) {
-    return res.status(400).json({
-      message: validationErrors
-    });
-  }
-
-  newPassenger = new Passenger({
-    name: req.body.name
-  });
-  newPassenger.save(function (err) {
-    if (err) {
-      return res.status(500).json({
-        message: "Unexpected server error, please try agains later"
+  req.asyncValidationErrors()
+    .then(function () {
+        newPassenger = new Passenger({
+          bookingId: req.body.bookingId,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName
+        });
+        newPassenger.save()
+          .then(function (passenger) {
+            return res.status(200).json({
+              data: newPassenger
+            });
+          })
+          .catch(function (err) {
+            if (err) {
+              return res.status(500).json({
+                message: "Unexpected server error, please try agains later"
+              });
+            }
+          });
+    })
+    .catch(function (err) {
+      return res.status(400).json({
+        message: err
       });
-    }
-
-    return res.status(200).json({
-      data: newPassenger
     });
-  });
 };

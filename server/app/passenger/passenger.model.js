@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 // Passenger Schema
 //-----------------------------------
 var passengerSchema = new mongoose.Schema({
-  name: String
+  bookingId: String,
+  firstName: String,
+  lastName: String
 });
 
 // Exports schema

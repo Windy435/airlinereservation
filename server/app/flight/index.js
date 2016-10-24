@@ -7,18 +7,16 @@ const router = express.Router();
 
 // Config middlewares
 // Config endpoints
-router.route('/departures')
-  .post(flightRoute.postDeparture)
-  .get(flightRoute.getAllDeparture)
-router.route('/departures/:departure_id')
-  .get(flightRoute.getDepartureById);
-router.route('/arrivals/:departure_id')
-  .post(flightRoute.postArrivalByDepartureId)
-  .get(flightRoute.getArrivalByDepartureId);
  router.route('/')
   .post(flightRoute.postFlight)
-  .get(flightRoute.findFlight);
-
+  .get(flightRoute.GetAllFlight);
+router.route('/search')
+    .get(flightRoute.searchFlight);
+router.route('/airports')
+  .post(flightRoute.postAirport)
+  .get(flightRoute.getAllAirport);
+router.route('/airports/arrivals/:departure_id')
+  .get(flightRoute.getArrivalByDepartureId);
 // Exports
 //-----------------------------------
 module.exports = router;

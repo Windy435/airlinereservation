@@ -16,7 +16,7 @@ module.exports.postAirport = (req, res)=>{
 	airport.AirportName = req.body.AirportName;
 	airport.save(err=>{
 		if(err)
-			return res.status(300).json({
+			return res.status(400).json({
 				success:false,
 				msg:err.message
 			});
@@ -30,12 +30,12 @@ module.exports.postAirport = (req, res)=>{
 module.exports.getAllAirport = (req, res)=>{
 	Airport.find((err, airports)=>{
 		if(err)
-			return res.status(300).json({
+			return res.status(400).json({
 				success:false,
 				msg:err.message
 			});
 		if(airports.length === 0)
-			return res.status(400).json({
+			return res.status(404).json({
 				success:false,
 				msg:"Not found"
 			});
@@ -53,7 +53,7 @@ module.exports.getArrivalByDepartureId = (req, res, next)=>{
 		.select({arrivalId:1})
 		.exec((err, flights)=>{
 			if(err)
-				return res.status(300).json({
+				return res.status(400).json({
 				success:false,
 				msg:err.message
 			});
@@ -71,7 +71,7 @@ module.exports.getArrivalByDepartureId = (req, res, next)=>{
 				.find({AirportId: {$in: arrivals}})
 				.exec((err, airports)=>{
 					if(err)
-						return res.status(300).json({
+						return res.status(400).json({
 										success:false,
 										msg:err.message
 									});
@@ -101,7 +101,7 @@ module.exports.postFlight = (req, res)=>{
 
 	flight.save(err=>{
 		if(err)
-			return res.status(300).json({
+			return res.status(400).json({
 				success:false,
 				msg:err.message
 			});
@@ -115,7 +115,7 @@ module.exports.postFlight = (req, res)=>{
 module.exports.GetAllFlight = (req, res)=>{
 	Flight.find((err, flights)=>{
 		if(err)
-			return res.status(300).json({
+			return res.status(400).json({
 				success:false,
 				msg:err.message
 			});

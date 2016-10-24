@@ -7,7 +7,7 @@ var FlightSchema = new Schema({
 	code: String,
 	departureId:String,
 	arrivalId:String,
-	date:Date,
+	date:{ type: Date, default: Date.now },
 	level:String,
 	price:String,
 	numberOfPlaneSeats:Number,

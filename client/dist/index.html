@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <!--Stylesheet-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body ng-app="app">
+  <div class="container" ng-controller="BookingController as vm">
+    <form action="" class="form-inline">
+      <fieldset ng-repeat="flight in vm.flights">
+        <flight-detail flight-info="flight"></flight-information>
+      </fieldset>
+      
+      <fieldset>
+        <div class="form-group">
+          <a ng-click="vm.AddFlight()">Add flight</a>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="form-group">
+          <div><select class="form-control" ng-model="vm.passengerCount">
+            <option value="" selected disabled>Amount of passenger</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select></div>
+        </div>
+      </fieldset>
+        
+      <fieldset>
+        <div class="form-group">
+          <button class="btn btn-info" type="button" ng-click="vm.SearchFlight()">Search</button>
+        </div>
+      </fieldset>
+
+      <fieldset ng-repeat="passenger in vm.passengers">
+        <passenger-information passenger-info="passenger"></passenger-information>
+      </fieldset>
+
+      <fieldset>
+        <button class="btn btn-primary" type="button" ng-click="vm.BookFlight()">Book</button>
+      </fieldset>
+    </form>
+  </div>
+
+  <!--Angular-->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <!--Angular UI Bootstrap-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
+  <!-- App scripts -->
+  <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

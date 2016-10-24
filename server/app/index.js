@@ -8,6 +8,7 @@ const morgan = require('morgan');
 // API middlewares
 const passengerEndpoint = require('./passenger');
 const bookingEndpoint = require('./booking');
+const flightEndpoint = require('./flight');
 
 // Api routes config
 //-----------------------------------
@@ -20,6 +21,7 @@ apiRoute.use(bodyParser.json());
 // Mount endpoints
 apiRoute.use('/passengers', passengerEndpoint);
 apiRoute.use('/bookings', bookingEndpoint);
+apiRoute.use('/flights', flightEndpoint);
 
 // App config
 //-----------------------------------

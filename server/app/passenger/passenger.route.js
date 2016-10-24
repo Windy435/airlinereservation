@@ -48,3 +48,39 @@ module.exports.post = function (req, res, next) {
       });
     });
 };
+
+module.exports.getOne = function (req, res, next) {
+  // Validate request parameters
+  req.checkParams({
+    'bookingId': {
+      notEmpty: true,
+      isValidBookingId: true,
+      errorMessage: 'Invalid bookingId'
+    }
+  });
+  req.asyncValidationErrors()
+    .then(function () {
+      Passenger.find({
+        // Conditions
+        bookingId: req.params.bookingId
+      }).exec()
+        .then(function (passengers) {
+          // Not found
+          if (passengers === undefined || passengers.length === 0) {
+            return res.status(404).json();
+          }
+
+          return res.status(200).json({
+            data: passengers
+          });
+        })
+        .catch(function (err) {
+          return res.status(500).json();
+        })
+    })
+    .catch(function (err) {
+      return res.status(400).json({
+        message: err
+      });
+    });
+};

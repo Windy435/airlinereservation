@@ -1,0 +1,20 @@
+<div class="form-group">
+    <select class="form-control" ng-model="vm.flightInfo.from" ng-options="departId for departId in vm.departIds">
+        <option value="" selected disabled>From</option>
+    </select>
+</div>
+    
+<div class="form-group">
+    <select class="form-control" ng-model="vm.flightInfo.to" ng-options="arrivalId for arrivalId in vm.arrivalIds">
+        <option value="" selected disabled>To</option>
+    </select>
+</div>
+    
+<div class="form-group">
+    <span class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.flightInfo.depart" is-open="vm.departDatePopup" placeholder="Depart">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.departDatePopup = !vm.departDatePopup;"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+    </span>
+</div>

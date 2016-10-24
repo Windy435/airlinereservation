@@ -94,7 +94,6 @@ module.exports.postFlight = (req, res)=>{
 	flight.departureId = req.body.departureId;
 	flight.arrivalId = req.body.arrivalId;
 	flight.date = req.body.date;
-	flight.time = req.body.time;
 	flight.level = req.body.level;
 	flight.price = req.body.price;
 	flight.countOfPlaneSeats = req.body.countOfPlaneSeats;

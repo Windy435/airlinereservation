@@ -9,11 +9,6 @@
     "lint:server": "jshint server/**/*.js",
     "lint:client": "jshint client/**/*.js",
     "lint": "npm run lint:server && npm run lint:client",
-    "prebuild:scripts": "npm run lint && mkdir -p client/dist/js/",
-    "build:scripts": "browserify client/source/js/app.js -o client/dist/js/bundle.js",
-    "build:css": "node-sass client/source/css/ -o client/dist/css/style.css",
-    "prebuild": "npm run clean",
-    "build": "npm run build:scripts && npm run build:css",
     "test:server": "mocha server/**/test-*.js",
     "test:client": "mocha client/**/test-*.js",
     "test": "npm run test:server && npm run test:client"

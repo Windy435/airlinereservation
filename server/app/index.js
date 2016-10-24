@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 // Middlewares
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const morgan = require('morgan');
 
 // API middlewares
@@ -16,6 +17,20 @@ const apiRoute = express.Router();
 // Config middle wares
 apiRoute.use(bodyParser.urlencoded({extended: false}));
 apiRoute.use(bodyParser.json());
+apiRoute.use(expressValidator({
+  customValidators: {
+    isValidBookingId: function (id) {
+      return new Promise(function (resolve, reject) {
+        http.get(`http://${config.homepage}/api/bookings/${id}`, (res) => {
+          if (res.statusCode === 200) {
+            resolve();
+          }
+          reject();
+        });
+      });
+    }
+  }
+}));
 
 // Mount endpoints
 apiRoute.use('/passengers', passengerEndpoint);
@@ -31,6 +46,15 @@ app.use(morgan('combined'));
 // Mount endpoints
 app.use('/api', apiRoute);
 
+// Public config
+//-----------------------------------
+// Config static file
+app.use(express.static(__base + '/client/dist'));
+
+// Mount public
+app.get('/', function(req, res, next) {
+  res.sendFile(__base + '/client/dist/index.html');
+});
 // Exports
 //-----------------------------------
 var server;

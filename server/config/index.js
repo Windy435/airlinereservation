@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 
 // Global
 //-----------------------------------
-global.__base = __dirname + '/';
+global.__base = '/Users/trietdang/Source Code/airlinereservation/';
 global.config = {
 	port: process.env.PORT || 3000,
 	connectionString: process.env.CONNECTIONSTRING || 'mongodb://localhost/airlinereservation',

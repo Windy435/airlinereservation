@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var AirportSchema = new Schema({
-	AirportId: String,
-	AirportName: String
+	_id: String,
+	name: String
 });
 
 module.exports = mongoose.model('Airport', AirportSchema);

@@ -10,6 +10,7 @@ const morgan = require('morgan');
 const passengerEndpoint = require('./passenger');
 const bookingEndpoint = require('./booking');
 const flightEndpoint = require('./flight');
+const flightDetailEndpoint = require('./flightdetail');
 
 // Api routes config
 //-----------------------------------
@@ -37,6 +38,7 @@ apiRoute.use(expressValidator({
 apiRoute.use('/passengers', passengerEndpoint);
 apiRoute.use('/bookings', bookingEndpoint);
 apiRoute.use('/flights', flightEndpoint);
+apiRoute.use('/flightDetails', flightDetailEndpoint);
 
 // App config
 //-----------------------------------

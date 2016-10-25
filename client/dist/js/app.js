@@ -13,8 +13,8 @@
         .module('app')
         .directive('flightDetail', flightDetail);
 
-    //flightDetail.$inject = [''];
-    function flightDetail() {
+    flightDetail.$inject = ['$http'];
+    function flightDetail($http) {
         // Usage:
         //
         // Creates:
@@ -36,26 +36,35 @@
         }
     }
     /* @ngInject */
-    function FlightDetailController () {
+    function FlightDetailController ($http) {
         var vm = this;
 
         vm.departIds = [];
         vm.arrivalIds = [];
+        vm.OnChanged = OnChanged;
+
         activate();
 
         ////////////////
 
         function activate () {
-            vm.departIds = [
-                'ABC',
-                'DEF',
-                'GHI'
-            ];
-            vm.arrivalIds = [
-                'JKL',
-                'MNO',
-                'PQR'
-            ];
+            $http.get('http://localhost:3000/api/flights/departures')
+                .then(function (res) {
+                    vm.departIds = res.data.data;
+                })
+                .catch(function (err) {
+
+                });
+        }
+
+        function OnChanged() {
+            $http.get(`http://localhost:3000/api/flights/departures/${vm.flightInfo.from}/arrivals`)
+                .then(function (res) {
+                    vm.arrivalIds = res.data.data;
+                })
+                .catch(function (err) {
+
+                });
         }
     }
 })();
@@ -80,6 +89,7 @@
             link: link,
             restrict: 'E',
             scope: {
+                label: "@",
                 passengerInfo: "="
             },
             templateUrl: "passengerInformation.html"
@@ -140,41 +150,35 @@
     function BookingController($http) {
         var vm = this;
 
-        vm.flights = [];
+        vm.stage = 0;                           // 0: search flight, 1: choose flights, 2: add information
+        vm.flights = [{}];
+        vm.availableFlights = [];
         vm.passengers = [];
         vm.AddFlight = addFlight;
         vm.SearchFlight = searchFlight;
+        vm.ChooseFlight = chooseFlight;
         vm.BookFlight = bookFlight;
 
         activate();
 
         ////////////////
 
-        function activate() { 
+        function activate() {
         }
 
         function addFlight() {
-            var newFlight = {
-                from: '',
-                to: '',
-                depart: ''
-            }
-
-            this.flights.push(newFlight);
+            this.flights.push({});
         }
 
         function searchFlight() {
-            // Search flight information here
+            angular.forEach(vm.flights, function (value, key) {
+            })
+        }
 
-            for (var i = 0; i < vm.passengerCount; i++) {
-                var newPassenger = {};
-
-                vm.passengers.push(newPassenger);
-            }
+        function chooseFlight(destinationIndex, flightIndex) {
         }
 
         function bookFlight() {
-            console.log(vm.passengers);
         }
     }
 })();

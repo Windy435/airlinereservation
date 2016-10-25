@@ -7,7 +7,7 @@ var flightDetailsSchema = new mongoose.Schema({
   flightId: String,
   date: Date,
   class: String,
-  cost: String
+  cost: Number
 });
 
 // Exports

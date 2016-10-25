@@ -9,13 +9,12 @@ const router = express.Router();
 // Config endpoints
  router.route('/')
   .post(flightRoute.postFlight)
-  .get(flightRoute.GetAllFlight);
-router.route('/search')
-    .get(flightRoute.searchFlight);
+  .get(flightRoute.searchFlight);
 router.route('/airports')
   .post(flightRoute.postAirport)
-  .get(flightRoute.getAllAirport);
-router.route('/airports/arrivals/:departure_id')
+router.route('/departures')
+  .get(flightRoute.getDepartures);
+router.route('/departures/:departureId/arrivals')
   .get(flightRoute.getArrivalByDepartureId);
 // Exports
 //-----------------------------------

@@ -17,7 +17,7 @@ module.exports.postAirport = (req, res) => {
   airport.name = req.body.Name;
   airport.save(err => {
     if (err)
-      return res.status(300).json({
+      return res.status(400).json({
         success: false,
         msg: err.message
       });
@@ -78,7 +78,7 @@ module.exports.postFlight = (req, res) => {
 
   flight.save(err => {
     if (err)
-      return res.status(300).json({
+      return res.status(400).json({
         success: false,
         msg: err.message
       });
@@ -92,7 +92,7 @@ module.exports.postFlight = (req, res) => {
 module.exports.GetAllFlight = (req, res) => {
   Flight.find((err, flights) => {
     if (err)
-      return res.status(300).json({
+      return res.status(400).json({
         success: false,
         msg: err.message
       });

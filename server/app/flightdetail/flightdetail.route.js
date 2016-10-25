@@ -75,11 +75,16 @@ module.exports.post = function (req, res, next) {
 };
 
 module.exports.get = (req, res, next) => {
+  var startTime = moment.utc(+req.query.date).startOf('day');
+  var endTime = moment.utc(startTime).add(1, 'day');
+  
   FlightDetail.find({
     flightId: req.query.flightId,
-    class: req.query.class
-  }).$where(() => {
-    moment(this.date).isSame(req.query.date, 'day');
+    class: req.query.class,
+    date: {
+      $gte: startTime.toDate(),
+      $lte: endTime.toDate()
+    }
   }).exec()
     .then((flightdetails) => {
       if (flightdetails.lenght === 0) {

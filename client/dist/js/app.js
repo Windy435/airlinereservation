@@ -154,6 +154,7 @@
         vm.flights = [{}];
         vm.availableFlights = [];
         vm.passengers = [];
+
         vm.AddFlight = addFlight;
         vm.SearchFlight = searchFlight;
         vm.ChooseFlight = chooseFlight;
@@ -171,8 +172,22 @@
         }
 
         function searchFlight() {
+            // Clear old data
+            vm.availableFlights = [];
+
             angular.forEach(vm.flights, function (value, key) {
-            })
+                var date = moment.utc(value.depart).add(1, 'day').valueOf();
+
+                $http.get(`http://localhost:3000/api/flights?departureId=${value.from}&arrivalId=${value.to}&date=${date}`)
+                    .then((res)=>{
+                        vm.availableFlights.push(res.data.data);
+                    
+                        vm.stage = 1;
+                    })
+                    .catch((err) => {
+
+                    });
+            });
         }
 
         function chooseFlight(destinationIndex, flightIndex) {

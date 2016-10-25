@@ -1,4 +1,4 @@
-const http = require('http');
+const moment = require('moment');
 const Airport = require('./airport.model');
 const Flight = require('./flight.model');
 var url = require('url');
@@ -109,17 +109,28 @@ module.exports.GetAllFlight = (req, res) => {
 };
 
 module.exports.searchFlight = (req, res) => {
+  var startTime = moment.utc(+req.query.date).startOf('day');
+  var endTime = moment.utc(startTime).add(1, 'day');
+
+
+  console.log(`${req.query.date}`);
+  console.log(`startTime = ${startTime.toDate()} | endTime = ${endTime.toDate()}`);
+
   Flight.find({
     departureId: req.query.departureId,
-    arrivalId: req.query.arrivalId
-  }).where(() => {
-
+    arrivalId: req.query.arrivalId,
+    date: {
+      $gte: startTime.toDate(),
+      $lte: endTime.toDate()
+    }
   }).exec()
     .then(function (flights) {
-      flights.forEach(function (value, index) {
-        http.get(`http://localhost:3000/api/flightdetails/?flightId=${value.flightId}&date=${req.query.date}&class=${value.class}`, (res) => {
-          console.log(res);
-        });
+      if (flights.lenght === 0) {
+        return res.status(404).json();
+      }
+
+      return res.status(200).json({
+        data: flights
       });
     })
     .catch(function (err) {

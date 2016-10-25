@@ -41,6 +41,36 @@
       </div>
 
       <div uib-collapse="vm.stage !== 1">
+        <div ng-repeat="availableFlights in vm.availableFlights">
+          <h2>Flight #{{$index}}:</h2>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>Flight Code</td>
+                <td>Departure</td>
+                <td>Arrival</td>
+                <td>Date</td>
+                <td>Class</td>
+                <td>Seat</td>
+                <td>Price</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="availableFlight in availableFlights">
+                <td>{{availableFlight.flightId}}</td>
+                <td>{{availableFlight.departureId}}</td>
+                <td>{{availableFlight.arrivalId}}</td>
+                <td>{{availableFlight.date}}</td>
+                <td>{{availableFlight.class}}</td>
+                <td>{{availableFlight.seat}}</td>
+                <td>{{availableFlight.price}}</td>
+                <td><button class="btn btn-primary">Choose</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div class="form-group">
           <div class="col-xs-12 text-center">
             <button class="btn btn-default" type="button" ng-click="vm.stage = 0;">Back</button>
@@ -62,6 +92,8 @@
     </form>
   </div>
 
+  <!--MomentJS-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
   <!--Angular-->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <!--Angular UI Bootstrap-->

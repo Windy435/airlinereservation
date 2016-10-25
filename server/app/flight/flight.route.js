@@ -11,84 +11,6 @@ function checkExistDataInArray(array, key) {
   return false;
 }
 //----------------------------------
-<<<<<<< HEAD
-module.exports.postAirport = (req, res)=>{
-	var airport = Airport();
-	airport.AirportId = req.body.AirportId;
-	airport.AirportName = req.body.AirportName;
-	airport.save(err=>{
-		if(err)
-			return res.status(400).json({
-				success:false,
-				msg:err.message
-			});
-		return res.status(200).json({
-			success:true,
-			msg:"Created successfully!"
-		});
-	});
-};
-
-module.exports.getAllAirport = (req, res)=>{
-	Airport.find((err, airports)=>{
-		if(err)
-			return res.status(400).json({
-				success:false,
-				msg:err.message
-			});
-		if(airports.length === 0)
-			return res.status(404).json({
-				success:false,
-				msg:"Not found"
-			});
-		return res.status(200).json({
-			success:true,
-			data:airports
-		});
-	});
-};
-
-module.exports.getArrivalByDepartureId = (req, res, next)=>{
-	Flight.find({
-			departureId:req.params.departure_id
-		})
-		.select({arrivalId:1})
-		.exec((err, flights)=>{
-			if(err)
-				return res.status(400).json({
-				success:false,
-				msg:err.message
-			});
-			if(flights.length === 0)
-				return res.status(404).json({
-					success:true,
-					data:"Not found"
-				});
-			var arrivals = [];
-			for(var index in flights){
-				if(!checkExistDataInArray(arrivals, flights[index].arrivalId))
-					arrivals.push(flights[index].arrivalId);
-			}
-			Airport
-				.find({AirportId: {$in: arrivals}})
-				.exec((err, airports)=>{
-					if(err)
-						return res.status(400).json({
-										success:false,
-										msg:err.message
-									});
-					if(airports.length === 0)
-						return res.status(404).json({
-							success:true,
-							data:"Not found"
-						});
-					return res.status(200).json({
-						success:true,
-						data:flights
-					});
-				});
-		});
-=======
 module.exports.postAirport = (req, res) => {
   var airport = Airport();
   airport._id = req.body.Id;
@@ -142,7 +64,6 @@ module.exports.getArrivalByDepartureId = (req, res, next) => {
     .catch(function (err) {
       return res.status(500).json();
     });
->>>>>>> a822c0fbcee3b0c06643462bf34851f3d11ceead
 };
 
 module.exports.postFlight = (req, res) => {
@@ -155,38 +76,6 @@ module.exports.postFlight = (req, res) => {
   flight.seat = req.body.seat;
   flight.price = req.body.price;
 
-<<<<<<< HEAD
-	flight.save(err=>{
-		if(err)
-			return res.status(400).json({
-				success:false,
-				msg:err.message
-			});
-		return res.status(200).json({
-			success:true,
-			msg:"Create successfully!"
-		});
-	});
-};
-
-module.exports.GetAllFlight = (req, res)=>{
-	Flight.find((err, flights)=>{
-		if(err)
-			return res.status(400).json({
-				success:false,
-				msg:err.message
-			});
-		if(flights.length === 0)
-			return res.status(404).json({
-				success:true,
-				data:"Not found"
-			});
-		return res.status(200).json({
-			success:true,
-			data:flights
-		});
-	});
-=======
   flight.save(err => {
     if (err)
       return res.status(300).json({
@@ -217,7 +106,6 @@ module.exports.GetAllFlight = (req, res) => {
       data: flights
     });
   });
->>>>>>> a822c0fbcee3b0c06643462bf34851f3d11ceead
 };
 
 module.exports.searchFlight = (req, res) => {

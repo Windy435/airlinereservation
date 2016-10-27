@@ -29,16 +29,16 @@ module.exports.postAirport = (req, res) => {
 };
 
 module.exports.getDepartures = (req, res) => {
-  Flight.find()
-    .distinct('departureId')
+  Airport.find()
+    .distinct('_id')
     .exec()
-    .then(function (flights) {
-      if (flights.length === 0) {
+    .then(function (airports) {
+      if (airports.length === 0) {
         return res.status(404).json();
       }
 
       return res.status(200).json({
-        data: flights
+        data: airports
       });
     })
     .catch(function (err) {

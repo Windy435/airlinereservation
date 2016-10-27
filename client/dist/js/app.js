@@ -165,14 +165,7 @@
         ////////////////
 
         function activate() {
-            $http.post(`http://localhost:3000/api/bookings`)
-                .then(function (res) {
-                    vm.departIds = res.data.data;
-                })
-                .catch(function (err) {
-
-                });
-        }
+       }
 
         function addFlight() {
             this.flights.push({});
